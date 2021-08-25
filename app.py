@@ -52,5 +52,6 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port)
 
     start_server = websockets.serve(echo, "", int(os.environ["PORT"]))
+
     asyncio.get_event_loop().run_until_complete(start_server)
     asyncio.get_event_loop().run_forever()
