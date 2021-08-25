@@ -3,9 +3,6 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
-import asyncio
-import websockets
-
 
 app = Flask(__name__)
 bot = LineBotApi(
@@ -41,17 +38,6 @@ def handle_message(event):
     bot.reply_message(event.reply_token, TextSendMessage(event.message.text))
 
 
-async def echo(websocket, path):
-    async for message in websocket:
-        await websocket.send(message)
-
-
-
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 80))
     app.run(host='0.0.0.0', port=port)
-
-    start_server = websockets.serve(echo, "", int(os.environ["PORT"]))
-
-    asyncio.get_event_loop().run_until_complete(start_server)
-    asyncio.get_event_loop().run_forever()
