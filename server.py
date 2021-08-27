@@ -3,6 +3,9 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import *
 import os
+import websockets
+import json
+import ws_client_local as ws
 
 app = Flask(__name__)
 
@@ -34,9 +37,17 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print(event.message.text)
-    print(event.reply_token)
-    bot.reply_message(event.reply_token, TextSendMessage(event.message.text))
+    #print(event.message.text)
+    #print(event.reply_token)
+    #bot.reply_message(event.reply_token, TextSendMessage(event.message.text))
+    if(str("啟動") == event.message.text):
+        bot.reply_message(str("啟動中..."))
+        trigger_local_client("startup")
+
+def trigger_local_client(msg):
+    ws.send_message
+
+
 
 
 if __name__ == "__main__":
