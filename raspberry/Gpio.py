@@ -2,20 +2,6 @@ from datetime import datetime
 import RPi.GPIO as gp
 import json
 
-relay = {
-    "1" : 26,
-    "2" : 20,
-    "3" : 21
-    }
-
-
-gp.setwarnings(False)
-gp.setmode(gp.BCM)
-
-gp.setup(relay["1"], gp.OUT)
-gp.setup(relay["2"], gp.OUT)
-gp.setup(relay["3"], gp.OUT)
-
 class message_obj():
     def __init__(self, event, status, message):
         self.time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
@@ -28,6 +14,19 @@ class message_obj():
             sort_keys=False, indent=4)
 
 def relay_operation(channel, opt_status):
+    relay = {
+        "1" : 26,
+        "2" : 20,
+        "3" : 21
+    }
+
+
+    gp.setwarnings(False)
+    gp.setmode(gp.BCM)
+
+    gp.setup(relay["1"], gp.OUT)
+    gp.setup(relay["2"], gp.OUT)
+    gp.setup(relay["3"], gp.OUT)
     #0 = off, 1 = on
     try:
         if(channel in [1, 2, 3] and opt_status != gp.input(relay[str(channel)])):
@@ -58,3 +57,5 @@ def relay_operation(channel, opt_status):
             msg = message_obj("relay_operaion", "0002", "輸入參數錯誤，請檢查")
     except:
         msg = message_obj("relay_operaion", "1111", "Exception請檢查!")
+
+relay_operation(1, 0)
