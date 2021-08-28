@@ -1,7 +1,7 @@
 from datetime import datetime
 import RPi.GPIO as gp
 import json
-
+import time
 class message_obj():
     def __init__(self, event, status, message):
         self.time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
@@ -33,7 +33,7 @@ def relay_operation(channel, opt_status):
     try:
         if(channel in [1, 2, 3] and opt_status != gp.input(relay[str(channel)])):
             if(opt_status == 0): #opt_status = 0代表想關閉
-                relay_opt = gp.LOW
+                relay_opt = gp.HIGH
                 gp.ouput(relay[str(channel)], relay_opt)
                 current_satus = gp.input(relay[str(channel)])
 
@@ -46,7 +46,7 @@ def relay_operation(channel, opt_status):
                     print(msg.toJSON())
 
             elif(opt_status == 1): #opt_status = 1代表想開啟
-                relay_opt = gp.HIGH
+                relay_opt = gp.LOW
                 gp.ouput(relay[str(channel)], relay_opt)
                 current_satus = gp.input(relay[str(channel)])
                 if(current_satus == opt_status):
@@ -60,4 +60,49 @@ def relay_operation(channel, opt_status):
     except:
         msg = message_obj("relay_operaion", "1111", "Exception請檢查!")
 
-#relay_operation(1, 0)
+def test():
+    Relay_Ch1 = 26
+    Relay_Ch2 = 20
+    Relay_Ch3 = 21
+
+    gp.setwarnings(False)
+    gp.setmode(gp.BCM)
+
+    gp.setup(Relay_Ch1,gp.OUT)
+    gp.setup(Relay_Ch2,gp.OUT)
+    gp.setup(Relay_Ch3,gp.OUT)
+
+    print("Setup The Relay Module is [success]")
+
+    try:
+            while True:
+                    #Control the Channel 1
+                    gp.output(Relay_Ch1,gp.LOW)
+                    print("Channel 1:The Common Contact is access to the Normal Open Contact!")
+                    time.sleep(0.5)
+
+                    gp.output(Relay_Ch1,gp.HIGH)
+                    print("Channel 1:The Common Contact is access to the Normal Closed Contact!\n")
+                    gp.sleep(0.5)
+
+                    #Control the Channel 2
+                    gp.output(Relay_Ch2,gp.LOW)
+                    print("Channel 2:The Common Contact is access to the Normal Open Contact!")
+                    time.sleep(0.5)
+
+                    gp.output(Relay_Ch2,gp.HIGH)
+                    print("Channel 2:The Common Contact is access to the Normal Closed Contact!\n")
+                    time.sleep(0.5)
+
+                    #Control the Channel 3
+                    gp.output(Relay_Ch3,gp.LOW)
+                    print("Channel 3:The Common Contact is access to the Normal Open Contact!")
+                    time.sleep(0.5)
+
+                    gp.output(Relay_Ch3,gp.HIGH)
+                    print("Channel 3:The Common Contact is access to the Normal Closed Contact!\n")
+                    time.sleep(0.5)
+
+    except:
+            print("except")
+            gp.cleanup() 
