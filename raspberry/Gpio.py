@@ -24,9 +24,11 @@ def relay_operation(channel, opt_status):
     gp.setwarnings(False)
     gp.setmode(gp.BCM)
 
-    gp.setup(relay["1"], gp.OUT)
-    gp.setup(relay["2"], gp.OUT)
-    gp.setup(relay["3"], gp.OUT)
+    gp.setup(int(relay["1"]), gp.OUT)
+    gp.setup(int(relay["2"]), gp.OUT)
+    gp.setup(int(relay["3"]), gp.OUT)
+    print("Setup The Relay Module is [success]")
+
     #0 = off, 1 = on
     try:
         if(channel in [1, 2, 3] and opt_status != gp.input(relay[str(channel)])):
@@ -58,4 +60,4 @@ def relay_operation(channel, opt_status):
     except:
         msg = message_obj("relay_operaion", "1111", "Exception請檢查!")
 
-relay_operation(1, 0)
+#relay_operation(1, 0)
