@@ -83,7 +83,7 @@ def test():
 
                     gp.output(Relay_Ch1,gp.HIGH)
                     print("Channel 1:The Common Contact is access to the Normal Closed Contact!\n")
-                    gp.sleep(0.5)
+                    time.sleep(0.5)
 
                     #Control the Channel 2
                     gp.output(Relay_Ch2,gp.LOW)
@@ -105,4 +105,4 @@ def test():
 
     except Exception as e:
             print(e)
-            gp.cleanup() 
+            gp.cleanup()
