@@ -103,6 +103,6 @@ def test():
                     print("Channel 3:The Common Contact is access to the Normal Closed Contact!\n")
                     time.sleep(0.5)
 
-    except:
-            print("except")
+    except Exception as e:
+            print(e)
             gp.cleanup() 
