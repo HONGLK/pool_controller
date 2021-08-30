@@ -70,25 +70,22 @@ def handle_message(event):
             print(type(motorId), motorId)
             if(isinstance(motorId, int)):
                 ctrl = controller_obj(motorId, "startUp")
-                bot.reply_message(event.reply_token, TextSendMessage(str(motorId)+str("號機，啟動中...")))
+                print(ctrl.toJSON())
                 socketio.emit("startUp", ctrl.toJSON())
+                #bot.reply_message(event.reply_token, TextSendMessage(str(motorId)+str("號機，啟動中...")))
+                bot.reply_message(event.reply_token, TextSendMessage(ctrl.toJSON()))
+                
+                
         except ValueError as e:
             bot.reply_message(event.reply_token, TextSendMessage(str("請在\"啟動\"後方接上控制器編號 例如:啟動1")))
 
 @socketio.on('connect')
 def handle_message(user):
     print(user)
-    if(user == "pool_controller1"):
-        print(user)
-        msg = message_obj("response", "0000", "OK")
-        print(msg, type(msg))
-        # msg.Time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
-        socketio.emit(str(msg.event), msg.toJSON())
-    else:
-        msg = message_obj("response", "0001", "User error")
-        print(msg, type(msg))
-        socketio.emit(str(msg.event), msg.toJSON())
-        #disconnect()
+    msg = message_obj("response", "0000", "Login OK")
+    #print(msg, type(msg))
+    # msg.Time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
+    socketio.emit(str(msg.event), msg.toJSON())
 
 @socketio.on('response')
 def handle_response(data):

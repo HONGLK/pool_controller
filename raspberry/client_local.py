@@ -1,11 +1,12 @@
 import socketio
 from datetime import datetime
 import json
+#import Gpio as gp
 #import RPi.GPIO as GPIO
 
 sio = socketio.Client()
-sio.connect('http://127.0.0.1:80', auth="pool_controller1")
-print('my sid is', sio.sid, "auth", sio.connection_auth)
+
+
 class message_obj():
     def __init__(self, event, status, message):
         self.time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
@@ -47,15 +48,16 @@ class motor_obj():
 def gpio_controll():
     pass
 
-sio.emit('connect', "pool_controller1")
+
 
 
 @sio.on("startUp")
 def handle_startUp(data):
-
+    a = json.loads(data)
+    print(a)
+    #gp.relay_operation(channel)
     msg = message_obj("response", "0000", "OK")
-    print(data)
-    return 0
+    sio.emit("response", msg.toJSON())
 
 @sio.on("shutDown")
 def handle_shutDown(data):
@@ -67,4 +69,7 @@ def handle_response(data):
     # handle the message
     print(data)
 
-
+sio.connect('http://127.0.0.1:80', auth="pool_controller1")
+#sio.emit('connect', "pool_controller1")
+print('my sid is', sio.sid, "auth", sio.connection_auth)
+sio.wait()
