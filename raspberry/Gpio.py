@@ -13,7 +13,26 @@ class message_obj():
         return json.dumps(self, default=lambda o: o.__dict__, 
             sort_keys=False, indent=4)
 
-def relay_operation(channel, opt_status):
+relay = {
+    "1" : 26,
+    "2" : 20,
+    "3" : 21
+}
+
+
+gp.setwarnings(False)
+gp.setmode(gp.BCM)
+
+gp.setup(int(relay["1"]), gp.OUT)
+gp.setup(int(relay["2"]), gp.OUT)
+gp.setup(int(relay["3"]), gp.OUT)
+print(gp.input(relay["1"]))
+print(gp.input(relay["2"]))
+print(gp.input(relay["3"]))
+print("Setup The Relay Module is [success]")
+
+def reload_board():
+    gp.cleanup()
     relay = {
         "1" : 26,
         "2" : 20,
@@ -31,6 +50,13 @@ def relay_operation(channel, opt_status):
     print(gp.input(relay["2"]))
     print(gp.input(relay["3"]))
     print("Setup The Relay Module is [success]")
+
+def relay_operation(channel, opt_status):
+    relay = {
+        "1" : 26,
+        "2" : 20,
+        "3" : 21
+    }
 
     #0 = off, 1 = on
     try:
