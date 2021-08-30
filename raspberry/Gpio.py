@@ -31,25 +31,28 @@ print(gp.input(relay["2"]))
 print(gp.input(relay["3"]))
 print("Setup The Relay Module is [success]")
 
-def reload_board():
-    gp.cleanup()
-    relay = {
-        "1" : 26,
-        "2" : 20,
-        "3" : 21
-    }
+def reload_board(cmd):
+    if cmd == "clear":
+        gp.cleanup()
+    else:
+        gp.cleanup()
+        relay = {
+            "1" : 26,
+            "2" : 20,
+            "3" : 21
+        }
 
 
-    gp.setwarnings(False)
-    gp.setmode(gp.BCM)
+        gp.setwarnings(False)
+        gp.setmode(gp.BCM)
 
-    gp.setup(int(relay["1"]), gp.OUT)
-    gp.setup(int(relay["2"]), gp.OUT)
-    gp.setup(int(relay["3"]), gp.OUT)
-    print(gp.input(relay["1"]))
-    print(gp.input(relay["2"]))
-    print(gp.input(relay["3"]))
-    print("Setup The Relay Module is [success]")
+        gp.setup(int(relay["1"]), gp.OUT)
+        gp.setup(int(relay["2"]), gp.OUT)
+        gp.setup(int(relay["3"]), gp.OUT)
+        print(gp.input(relay["1"]))
+        print(gp.input(relay["2"]))
+        print(gp.input(relay["3"]))
+        print("Setup The Relay Module is [success]")
 
 def relay_operation(channel, opt_status):
     relay = {
