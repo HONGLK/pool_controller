@@ -5,6 +5,6 @@ relay = {
     "2" : 20,
     "3" : 21
 }
-channel = 1
-print(relay[str(channel)])
-print(type(relay[str(channel)]))
+a = 2
+if(a in [1,2,3]):
+   print("in") 
