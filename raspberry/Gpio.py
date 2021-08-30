@@ -27,12 +27,15 @@ def relay_operation(channel, opt_status):
     gp.setup(int(relay["1"]), gp.OUT)
     gp.setup(int(relay["2"]), gp.OUT)
     gp.setup(int(relay["3"]), gp.OUT)
+    print(gp.input(relay["1"]))
+    print(gp.input(relay["2"]))
+    print(gp.input(relay["3"]))
     print("Setup The Relay Module is [success]")
 
     #0 = off, 1 = on
     try:
         if(channel in [1, 2, 3] and opt_status != gp.input(relay[str(channel)])):
-            if(opt_status == 0): #opt_status = 0代表想關閉
+            if(opt_status == 0): #opt_status = 0代表想關閉 gp.LOW為導通
                 relay_opt = gp.HIGH
                 gp.ouput(relay[str(channel)], relay_opt)
                 current_satus = gp.input(relay[str(channel)])
@@ -45,7 +48,7 @@ def relay_operation(channel, opt_status):
                     msg = message_obj("relay_operaion", "0001", "改變狀態失敗，請檢查繼電器")
                     print(msg.toJSON())
 
-            elif(opt_status == 1): #opt_status = 1代表想開啟
+            elif(opt_status == 1): #opt_status = 1代表想開啟 gp.HIGH為斷開
                 relay_opt = gp.LOW
                 gp.ouput(relay[str(channel)], relay_opt)
                 current_satus = gp.input(relay[str(channel)])
