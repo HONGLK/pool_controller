@@ -67,8 +67,9 @@ def relay_operation(channel, opt_status):
             msg = message_obj("relay_operaion", "0002", "輸入參數錯誤，請檢查")
             print(msg.toJSON())
     except Exception as e:
-        msg = message_obj("relay_operaion", "1111", e)
-        print(msg.toJSON())
+        print(e)
+        #msg = message_obj("relay_operaion", "1111", e)
+        #print(msg.toJSON())
 
 def test():
     Relay_Ch1 = 26
