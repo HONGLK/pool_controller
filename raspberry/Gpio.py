@@ -35,6 +35,7 @@ def relay_operation(channel, opt_status):
     #0 = off, 1 = on
     try:
         if(channel in [1, 2, 3] and opt_status == gp.input(relay[str(channel)])):
+            print("in")
             if(opt_status == 0): #opt_status = 0代表想關閉 gp.HIGH為斷開
                 relay_opt = gp.HIGH
                 gp.ouput(relay[str(channel)], relay_opt)
@@ -64,8 +65,10 @@ def relay_operation(channel, opt_status):
                     print(msg.toJSON())
         else:
             msg = message_obj("relay_operaion", "0002", "輸入參數錯誤，請檢查")
+            print(msg.toJSON())
     except:
         msg = message_obj("relay_operaion", "1111", "Exception請檢查!")
+        print(msg.toJSON())
 
 def test():
     Relay_Ch1 = 26
