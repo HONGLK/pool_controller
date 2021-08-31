@@ -14,7 +14,7 @@ bot = LineBotApi(
     'x03RcxCzxsNWnE7tMmMB7MDNaP9WXZ0U3xgf9pJZMDTQdUdjIeH1xP2GzUvw7JFwudBENmteJoKpu+wt35fiiUt5qbs1b6eFa3qhzbw6Cdp237tZm4hVDTv4lz54rKQPzXeiCDGLToA9M+djwbZjkwdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('66331e146332302e2183f569f5cb3495')
 
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 class message_obj():
     def __init__(self, event, status, message):
@@ -104,6 +104,5 @@ def handle_response(data):
 
 
 if __name__ == "__main__":
-    #port = int(os.environ.get('PORT', 5000))
-    #socketio.run(app, host='0.0.0.0', debug=True, port=port)
-   pass 
+    port = int(os.environ.get('PORT', 5000))
+    socketio.run(app, host='0.0.0.0', debug=True, port=port)
