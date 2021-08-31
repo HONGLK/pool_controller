@@ -54,15 +54,18 @@ def gpio_controll():
 @sio.on("startUp")
 def handle_startUp(data):
     a = json.loads(data)
-    print(a)
-    #gp.relay_operation(channel)
+    channel = a["machineId"]
+    #gp.relay_operation(channel, 1)
     msg = message_obj("response", "0000", "OK")
     sio.emit("response", msg.toJSON())
 
 @sio.on("shutDown")
 def handle_shutDown(data):
-    print(data)
-
+    a = json.loads(data)
+    channel = a["machineId"]
+    #gp.relay_operation(channel, 0)
+    msg = message_obj("response", "0000", "OK")
+    sio.emit("response", msg.toJSON())
 
 @sio.on("response")
 def handle_response(data):

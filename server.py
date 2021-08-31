@@ -72,12 +72,23 @@ def handle_message(event):
                 ctrl = controller_obj(motorId, "startUp")
                 print(ctrl.toJSON())
                 socketio.emit("startUp", ctrl.toJSON())
-                #bot.reply_message(event.reply_token, TextSendMessage(str(motorId)+str("號機，啟動中...")))
-                bot.reply_message(event.reply_token, TextSendMessage(ctrl.toJSON()))
-                
-                
+                bot.reply_message(event.reply_token, TextSendMessage(str(motorId)+str("號機，啟動中...")))
+                #bot.reply_message(event.reply_token, TextSendMessage(ctrl.toJSON())) 
         except ValueError as e:
             bot.reply_message(event.reply_token, TextSendMessage(str("請在\"啟動\"後方接上控制器編號 例如:啟動1")))
+
+    if(str("關閉") in event.message.text):
+        try:
+            motorId = int(str(event.message.text)[-1])
+            print(type(motorId), motorId)
+            if(isinstance(motorId, int)):
+                ctrl = controller_obj(motorId, "shutDonw")
+                print(ctrl.toJSON())
+                socketio.emit("shutDown", ctrl.toJSON())
+                bot.reply_message(event.reply_token, TextSendMessage(str(motorId)+str("號機，關閉中...")))
+                #bot.reply_message(event.reply_token, TextSendMessage(ctrl.toJSON())) 
+        except ValueError as e:
+            bot.reply_message(event.reply_token, TextSendMessage(str("請在\"關閉\"後方接上控制器編號 例如:關閉1")))
 
 @socketio.on('connect')
 def handle_message(user):
