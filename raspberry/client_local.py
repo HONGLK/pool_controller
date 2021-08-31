@@ -1,8 +1,8 @@
 import socketio
 from datetime import datetime
 import json
-#import Gpio as gp
-#import RPi.GPIO as GPIO
+import Gpio as gp
+import RPi.GPIO as GPIO
 
 sio = socketio.Client()
 
