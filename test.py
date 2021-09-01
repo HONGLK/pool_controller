@@ -1,10 +1,15 @@
+from flask import Flask, request, abort
+from flask_socketio import SocketIO, disconnect
+
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import *
+
+from datetime import datetime
 import json
-from types import ModuleType
-relay = {
-    "1" : 26,
-    "2" : 20,
-    "3" : 21
-}
-a = 2
-if(a in [1,2,3]):
-   print("in") 
+import os
+
+
+app = Flask(__name__)
+
+print(app)
