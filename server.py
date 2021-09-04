@@ -98,6 +98,10 @@ def handle_message(user):
     # msg.Time = datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S")
     socketio.emit(str(msg.event), msg.toJSON())
 
+@socketio.on("Ip")
+def get_Ip(data):
+    print("client Ip is", data)
+
 @socketio.on('response')
 def handle_response(data):
     print(data)

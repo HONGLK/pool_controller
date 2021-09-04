@@ -4,6 +4,8 @@ import json
 import Gpio as gp
 import RPi.GPIO as GPIO
 
+from subprocess import check_output as co
+
 sio = socketio.Client()
 
 
@@ -73,6 +75,7 @@ def handle_response(data):
     print(data)
 
 sio.connect('http://127.0.0.1:80', auth="pool_controller1")
-#sio.emit('connect', "pool_controller1")
+ip = co(["curl", "ifconfig.me."]).decode("utf-8")
+sio.emit('Ip', ip)
 print('my sid is', sio.sid, "auth", sio.connection_auth)
 sio.wait()
