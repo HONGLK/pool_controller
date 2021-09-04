@@ -72,7 +72,7 @@ def handle_shutDown(data):
 @sio.on("response")
 def handle_response(data):
     print(data)
-    if(data.message == "get_IP"):
+    if(data["message"] == "get_IP"):
         ip = co(["curl", "ifconfig.me."]).decode("utf-8")
         return ip
 
