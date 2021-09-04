@@ -109,7 +109,7 @@ def handle_message(user):
 
 @socketio.on("Ip")
 def get_Ip(data):
-    print()
+    bot.push_message()
 
 @socketio.on('response')
 def handle_response(data):

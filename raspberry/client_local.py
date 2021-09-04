@@ -57,7 +57,7 @@ def gpio_controll():
 def handle_startUp(data):
     a = json.loads(data)
     channel = a["machineId"]
-    #gp.relay_operation(channel, 1)
+    gp.relay_operation(channel, 1)
     msg = message_obj("response", "0000", "OK")
     sio.emit("response", msg.toJSON())
 
@@ -65,7 +65,7 @@ def handle_startUp(data):
 def handle_shutDown(data):
     a = json.loads(data)
     channel = a["machineId"]
-    #gp.relay_operation(channel, 0)
+    gp.relay_operation(channel, 0)
     msg = message_obj("response", "0000", "OK")
     sio.emit("response", msg.toJSON())
 
@@ -74,8 +74,7 @@ def handle_response(data):
     msg = json.loads(data)
     if(msg["message"] == "get_IP"):
         ip = co(["curl", "ifconfig.me."]).decode("utf-8")
-        print(ip)
-        return ip
+        sio.emit("IP", str(ip))
 
 sio.connect('https://pool-controller-new.herokuapp.com/', auth="pool_controller1", wait_timeout=30)
 ip = co(["curl", "ifconfig.me."]).decode("utf-8")
