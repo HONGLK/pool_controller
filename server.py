@@ -92,9 +92,13 @@ def handle_message(event):
     
     if(str("查IP") in event.message.text):
         try:
+            msg = message_obj("response", "0000", "get_IP")
+            IP = socketio.emit(str(msg.event), msg.toJSON())
+
             bot.reply_message(event.reply_token, TextSendMessage(IP))
         except ValueError as e:
             bot.reply_message(event.reply_token, TextSendMessage(str(e)))
+            
 @socketio.on('connect')
 def handle_message(user):
     print(user)
@@ -105,8 +109,7 @@ def handle_message(user):
 
 @socketio.on("Ip")
 def get_Ip(data):
-    global IP
-    IP = data
+    print()
 
 @socketio.on('response')
 def handle_response(data):

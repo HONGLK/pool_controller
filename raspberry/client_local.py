@@ -71,8 +71,10 @@ def handle_shutDown(data):
 
 @sio.on("response")
 def handle_response(data):
-    # handle the message
     print(data)
+    if(data.message == "get_IP"):
+        ip = co(["curl", "ifconfig.me."]).decode("utf-8")
+        return ip
 
 sio.connect('https://pool-controller-new.herokuapp.com/', auth="pool_controller1", wait_timeout=30)
 ip = co(["curl", "ifconfig.me."]).decode("utf-8")
