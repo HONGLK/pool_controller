@@ -89,7 +89,12 @@ def handle_message(event):
                 #bot.reply_message(event.reply_token, TextSendMessage(ctrl.toJSON())) 
         except ValueError as e:
             bot.reply_message(event.reply_token, TextSendMessage(str("請在\"關閉\"後方接上控制器編號 例如:關閉1")))
-
+    
+    if(str("查IP") in event.message.text):
+        try:
+            bot.reply_message(event.reply_token, TextSendMessage(IP))
+        except ValueError as e:
+            bot.reply_message(event.reply_token, TextSendMessage(str(e)))
 @socketio.on('connect')
 def handle_message(user):
     print(user)
@@ -100,7 +105,8 @@ def handle_message(user):
 
 @socketio.on("Ip")
 def get_Ip(data):
-    print("client Ip is", data)
+    global IP
+    IP = data
 
 @socketio.on('response')
 def handle_response(data):
