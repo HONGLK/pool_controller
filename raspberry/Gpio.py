@@ -68,6 +68,7 @@ def relay_operation(channel, opt_status):
             if(opt_status == 0): #opt_status = 0代表想關閉 gp.HIGH為斷開
                 relay_opt = gp.HIGH
                 gp.output(relay[str(channel)], relay_opt)
+                time.sleep(3)
                 current_satus = gp.input(relay[str(channel)])
 
                 if(current_satus == opt_status):
@@ -83,6 +84,7 @@ def relay_operation(channel, opt_status):
             elif(opt_status == 1): #opt_status = 1代表想開啟 gp.LOW為導通
                 relay_opt = gp.LOW
                 gp.output(relay[str(channel)], relay_opt)
+                time.sleep(3)
                 current_satus = gp.input(relay[str(channel)])
                 if(current_satus == opt_status):
                     msg = message_obj("relay_operaion", "0000", "改變狀態成功，請檢查繼電器")
