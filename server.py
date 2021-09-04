@@ -94,11 +94,11 @@ def handle_message(event):
         try:
             msg = message_obj("response", "0000", "get_IP")
             IP = socketio.emit(str(msg.event), msg.toJSON())
-
-            bot.reply_message(event.reply_token, TextSendMessage(IP))
+            print(IP)
+            bot.reply_message(event.reply_token, TextSendMessage(str(IP)))
         except ValueError as e:
             bot.reply_message(event.reply_token, TextSendMessage(str(e)))
-            
+
 @socketio.on('connect')
 def handle_message(user):
     print(user)

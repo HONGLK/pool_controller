@@ -74,6 +74,7 @@ def handle_response(data):
     msg = json.loads(data)
     if(msg["message"] == "get_IP"):
         ip = co(["curl", "ifconfig.me."]).decode("utf-8")
+        print(ip)
         return ip
 
 sio.connect('https://pool-controller-new.herokuapp.com/', auth="pool_controller1", wait_timeout=30)
