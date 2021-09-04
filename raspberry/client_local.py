@@ -74,7 +74,7 @@ def handle_response(data):
     # handle the message
     print(data)
 
-sio.connect('http://127.0.0.1:80', auth="pool_controller1")
+sio.connect('https://pool-controller-new.herokuapp.com/', auth="pool_controller1", wait_timeout=30)
 ip = co(["curl", "ifconfig.me."]).decode("utf-8")
 sio.emit('Ip', ip)
 print('my sid is', sio.sid, "auth", sio.connection_auth)
