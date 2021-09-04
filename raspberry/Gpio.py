@@ -71,7 +71,7 @@ def relay_operation(channel, opt_status):
                 time.sleep(3)
                 current_satus = gp.input(relay[str(channel)])
 
-                if(current_satus == opt_status):
+                if(current_satus != opt_status):
                     msg = message_obj("relay_operaion", "0000", "改變狀態成功，請檢查繼電器")
                     print(current_satus)
                     print(msg.toJSON())
@@ -86,7 +86,7 @@ def relay_operation(channel, opt_status):
                 gp.output(relay[str(channel)], relay_opt)
                 time.sleep(3)
                 current_satus = gp.input(relay[str(channel)])
-                if(current_satus == opt_status):
+                if(current_satus != opt_status):
                     msg = message_obj("relay_operaion", "0000", "改變狀態成功，請檢查繼電器")
                     print(current_satus)
                     print(msg.toJSON())
